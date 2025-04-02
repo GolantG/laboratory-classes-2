@@ -1,6 +1,5 @@
 const express = require("express");
 const fs = require("fs");
-const path = require("path");
 const { STATUS_CODE } = require("../constants/statusCode");
 const renderNewProductPage = require("../views/renderNewProductPage");
 
