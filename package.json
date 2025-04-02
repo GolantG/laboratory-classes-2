@@ -5,20 +5,16 @@
   "main": "config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    /* 🔄 Refactoro the Changer 
-    Skrypt "start" wymaga modyfikacji! Zmień go tak, aby korzystał z "nodemon", 
-    a nie bezpośrednio z "node". */
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
-    /* 📦 Dependy the Importer 
-    W tej sekcji powinny znaleźć się zależności produkcyjne. 
-    Dodaj tutaj "express" oraz "body-parser". */
-  "dependencies": {},
-    /* 📦 Dependy the Importer 
-    Tutaj dodajemy zależności deweloperskie. 
-    Zainstaluj "nodemon" i umieść go w tej sekcji! */
-  "devDependencies": {}
+  "dependencies": {
+    "express": "5.1.0",
+    "body-parser": "2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "3.1.9"
+  }
 }
 

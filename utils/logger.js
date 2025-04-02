@@ -1,11 +1,14 @@
-// 🔄 Refactoro the Changer  
-// Przenieś teraz odpowiednie wywołania logów z routing.js i zastąp tam logowanie bezpośrednie wywołaniem tych funkcji.
+const getInfoLog = (req) => {
+  console.log(`INFO (${new Date().toUTCString()}): ${req.method} - ${req.url}`);
+};
 
-const getInfoLog = () => {};
+const getErrorLog = (error) => {
+  console.error(`ERROR (${new Date().toUTCString()}): ${error.message}`);
+};
 
-const getErrorLog = () => {};
-
-const getProcessLog = () => {};
+const getProcessLog = (message) => {
+  console.log(`PROCESS (${new Date().toUTCString()}): ${message}`);
+};
 
 module.exports = {
   getInfoLog,
