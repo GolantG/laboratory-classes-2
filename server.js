@@ -11,16 +11,7 @@ const { STATUS_CODE } = require('./constants/statusCode');
 const config = require("./config");
 const { requestRouting } = require("./routing/routing");
 
-const requestListener = (request, response) => {
-  requestRouting(request, response);
-};
-
-const server = http.createServer(requestListener);
-
-server.listen(config.PORT);
-
 const app = express();
-
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
