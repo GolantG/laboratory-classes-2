@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require(`path`);
 const fs = require("fs");
 const { STATUS_CODE } = require("../constants/statusCode");
 const renderNewProductPage = require("../views/renderNewProductPage");
@@ -6,33 +7,21 @@ const renderNewProductPage = require("../views/renderNewProductPage");
 const router = express.Router();
 
 router.get("/add", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views", "add-product.html"));
+  res.sendFile('add-product.html', { root: path.join(__dirname, '../views') });
 });
 
 router.post("/add", (req, res) => {
-  const body = [];
+  const { title, description, price } = req.body; 
 
-  req.on("data", (chunk) => {
-    body.push(chunk);
-  });
+  const formData = { title, description, price };
 
-  req.on("end", () => {
-    const parsedBody = Buffer.concat(body).toString();
-    const formData = parsedBody.split("&").map((entry) => {
-      const [key, value] = entry.split("=");
-      return `${key}: ${decodeURIComponent(value)}`;
-    });
+  fs.writeFile("product.txt", JSON.stringify(formData), (err) => {
+    if (err) {
+      console.error("Error writing to file", err);
+      return res.status(500).send("Internal Server Error");
+    }
 
-    fs.writeFile("product.txt", formData.join(", "), (err) => {
-      if (err) {
-        console.error("Error writing to file", err);
-        return res.status(500).send("Internal Server Error");
-      }
-
-      res.status(STATUS_CODE.FOUND);
-      res.setHeader("Location", "/product/new");
-      res.end();
-    });
+    res.redirect("/product/new");
   });
 });
 
@@ -42,8 +31,8 @@ router.get("/new", (req, res) => {
       res.status(STATUS_CODE.NOT_FOUND).send("No product found");
       return;
     }
-
-    renderNewProductPage(res, data);
+    const product = JSON.parse(data);
+    renderNewProductPage(res, product);
   });
 });
 

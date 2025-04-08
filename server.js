@@ -27,7 +27,7 @@ app.use('/', homeRoutes);
 
 app.use((req, res, next) => {
   res.status(STATUS_CODE.NOT_FOUND);
-  res.sendFile(path.join(__dirname, 'views', '404.html'));
+  res.sendFile('404.html', { root: path.join(__dirname, 'views') });
   logger.getErrorLog(new Error(`requested url ${req.url} doesn't exist.`));
 });
 
